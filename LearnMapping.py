@@ -15,6 +15,10 @@ import random
 import tiffile as tiff
 import PIL.Image as Image
 
+
+import random
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 print(tf.config.experimental.list_physical_devices('GPU'))
 
 
@@ -175,8 +179,6 @@ batch_size = 4
 # Build model
 model = get_model(img_size, num_classes)
 model.summary()
-
-import random
 
 # Split our img paths into a training and a validation set
 val_samples = 10
