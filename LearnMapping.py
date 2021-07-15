@@ -32,8 +32,8 @@ def set_memory_growth():
             logging.info(e)
     else:
         logging.info("No GPU found!")
-set_memory_growth()
-
+# set_memory_growth()
+print(tf.config.experimental.list_physical_devices('GPU'))
 
 
 input_dir = "data2/input/"
