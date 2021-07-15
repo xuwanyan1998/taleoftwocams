@@ -99,7 +99,7 @@ class OxfordPets(keras.utils.Sequence):
 
     def __getitem__(self, idx):
         """Returns tuple (input, target) correspond to batch #idx."""
-        xi,yi,wi,hi = random.randint(50,100),random.randint(50,100),256,256
+        xi,yi,wi,hi = random.randint(50,100),random.randint(50,100),512,512
         i = idx * self.batch_size
         batch_input_img_paths = self.input_img_paths[i : i + self.batch_size]
         batch_target_img_paths = self.target_img_paths[i : i + self.batch_size]
@@ -190,10 +190,10 @@ def get_model(img_size, num_classes):
 # Free up RAM in case the model definition cells were run multiple times
 keras.backend.clear_session()
 
-img_size = (256, 256)
+img_size = (512, 512)
 # img_size = (160, 160)
 num_classes = 1
-batch_size = 4
+batch_size = 16
 
 # Build model
 model = get_model(img_size, num_classes)
