@@ -15,24 +15,6 @@ import random
 import tiffile as tiff
 import PIL.Image as Image
 
-def set_memory_growth():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    if gpus:
-        try:
-            # Currently, memory growth needs to be the same across GPUs
-            for gpu in gpus:
-                tf.config.experimental.set_memory_growth(gpu, True)
-                logical_gpus = tf.config.experimental.list_logical_devices(
-                    'GPU')
-                logging.info(
-                    "Detect {} Physical GPUs, {} Logical GPUs.".format(
-                        len(gpus), len(logical_gpus)))
-        except RuntimeError as e:
-            # Memory growth must be set before GPUs have been initialized
-            logging.info(e)
-    else:
-        logging.info("No GPU found!")
-# set_memory_growth()
 print(tf.config.experimental.list_physical_devices('GPU'))
 
 
@@ -94,7 +76,7 @@ class OxfordPets(keras.utils.Sequence):
 
     def __getitem__(self, idx):
         """Returns tuple (input, target) correspond to batch #idx."""
-        xi,yi,wi,hi = random.randint(50,100),random.randint(50,100),512,512
+        xi,yi,wi,hi = random.randint(50,100),random.randint(50,100),256,256
         i = idx * self.batch_size
         batch_input_img_paths = self.input_img_paths[i : i + self.batch_size]
         batch_target_img_paths = self.target_img_paths[i : i + self.batch_size]
@@ -185,7 +167,7 @@ def get_model(img_size, num_classes):
 # Free up RAM in case the model definition cells were run multiple times
 keras.backend.clear_session()
 
-img_size = (512, 512)
+img_size = (256, 256)
 # img_size = (160, 160)
 num_classes = 1
 batch_size = 4
