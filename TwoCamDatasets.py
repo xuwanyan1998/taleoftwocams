@@ -38,7 +38,7 @@ class TwoCamDatasets(keras.utils.Sequence):
         for j, path in enumerate(batch_input_img_paths):
             img = io.imread(path)
             img = img[xi:xi+wi,yi:yi+hi]
-#             img = (img / 127.5) - 1
+            img = img / 255.0
             if self.packraw:
                 x[j] = pack_raw(img)
             else:
@@ -47,7 +47,7 @@ class TwoCamDatasets(keras.utils.Sequence):
         for j, path in enumerate(batch_target_img_paths):
             img = io.imread(path)
             img = img[xi:xi+wi,yi:yi+hi]
-#             img = (img / 127.5) - 1
+            img = img / 255.0
             y[j] = np.expand_dims(img, 2)
 
         if np.random.randint(2, size=1)[0] == 1:  # random flip
