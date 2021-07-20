@@ -18,11 +18,6 @@ from Utils import set_memory_growth
 flags.DEFINE_string('gpu', '0', 'which gpu to use')
 flags.DEFINE_string('batch_size', '16', 'batch size to use')
 
-input_dir = "data/input/"
-target_dir = "data/target/"
-
-
-
 
 def main(_):
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -33,6 +28,9 @@ def main(_):
     img_size_w = 512
     img_size_h = 512
     val_samples = 50
+
+    input_dir = "data2/input/"
+    target_dir = "data2/target/"
 
     set_memory_growth()
     tf.config.experimental.list_physical_devices('GPU')
