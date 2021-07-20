@@ -16,7 +16,7 @@ from TwoCamDatasets import TwoCamDatasets
 from Utils import set_memory_growth
 
 flags.DEFINE_string('gpu', '0', 'which gpu to use')
-flags.DEFINE_string('batch_size', '16', 'batch size to use')
+flags.DEFINE_integer('batch_size', '16', 'batch size to use')
 
 
 def main(_):
