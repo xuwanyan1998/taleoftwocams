@@ -103,9 +103,9 @@ def main(_):
 
     # model.compile(optimizer="adam", loss=[losses.mean_absolute_error,perceptual_loss],
     #               metrics=['mean_absolute_error',PSNRLoss,perceptual_loss],loss_weights=[1.0,3.0])#'mean_absolute_error',
-    optimizer = tf.keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.99, epsilon=1e-08, decay=0.0)
+    # optimizer = tf.keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.99, epsilon=1e-08, decay=0.0)
     # optimizer = tf.keras.optimizers.SGD(learning_rate=learning_rate, momentum=0.9, nesterov=True)  # can use adam sgd
-    model.compile(optimizer=optimizer, loss=LossZoo.customized_loss,
+    model.compile(optimizer='adam', loss=LossZoo.customized_loss,
                   metrics=['mean_absolute_error', LossZoo.PSNRLoss, LossZoo.perceptual_loss])  # 'mean_absolute_error',
     # model.compile(optimizer="adam", loss=[losses.mean_absolute_error],
     #               metrics=['mean_absolute_error',PSNRLoss,perceptual_loss])#
