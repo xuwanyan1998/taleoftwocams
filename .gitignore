@@ -1,0 +1,9 @@
+.vscode/*
+checkpoints/*
+logs/*
+**/__pycache__/*
+**/*.tfrecord
+.idea
+.trash
+data/*
+pre_models/*
