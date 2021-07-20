@@ -8,7 +8,7 @@ loss_fun: 'mean_absolute_error'
 
 num_samples: 300
 epochs: 300
-base_lr: 0.001
+base_lr: 0.01
 w_decay: !!float 5e-4
 save_steps: 1000
 
