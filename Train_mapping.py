@@ -38,7 +38,7 @@ def set_memory_growth():
     else:
         logging.info("No GPU found!")
 # set_memory_growth()
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 set_memory_growth()
 tf.config.experimental.list_physical_devices('GPU')
 
