@@ -7,7 +7,7 @@ import tensorflow as tf
 from absl import app, flags, logging
 from absl.flags import FLAGS
 import LossZoo
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint, TensorBoard
 
 import random
 
@@ -37,6 +37,7 @@ def main(_):
     learning_rate = cfg['base_lr']
     input_dir = cfg['train_dataset']+"/input/"
     target_dir = cfg['train_dataset']+ "/target/"
+    epochs = cfg['epochs']
 
     set_memory_growth()
     tf.config.experimental.list_physical_devices('GPU')
@@ -111,16 +112,18 @@ def main(_):
     # 监控val_loss，当连续40轮变化小于0.0001时启动early stopping
     es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=10, min_delta=0.0001)
 
+    tb_callback = TensorBoard(log_dir='logs/'+ cfg['sub_name'],
+                                  update_freq=cfg['batch_size'] * 5,
+                                  profile_batch=0)
+    # tb_callback._total_batches_seen = steps
+    # tb_callback._samples_seen = steps * cfg['batch_size']
     callbacks = [
         keras.callbacks.ModelCheckpoint("model.h5", save_best_only=True),
-        es
+        es,
+        tb_callback
     ]
 
-    # Train the model, doing validation at the end of each epoch.
-    epochs = 300
     model.fit(train_gen, epochs=epochs, validation_data=val_gen, callbacks=callbacks)
-
-    summary_writer = tf.summary.create_file_writer('./logs/' )
 
 if __name__ == '__main__':
     app.run(main)
