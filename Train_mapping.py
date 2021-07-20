@@ -13,6 +13,7 @@ import PIL
 from PIL import ImageOps
 
 import random
+from skimage import io
 
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Dropout, BatchNormalization, LeakyReLU, concatenate
