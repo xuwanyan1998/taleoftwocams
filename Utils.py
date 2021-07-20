@@ -17,6 +17,19 @@ def pack_raw(im):
                           im[1:H:2, 0:W:2, :]), axis=2)
     return out
 
+
+def pack_raw_back(im):
+    # pack  4 channels to Bayer image
+    img_shape = im.shape
+    H = img_shape[0]
+    W = img_shape[1]
+    out = np.zeros((H*2,W*2,1), dtype="float32")
+    out[0:H:2, 0:W:2, :] = im[:,:,0]
+    out[0:H:2, 1:W:2, :] = im[:,:,0]
+    out[1:H:2, 1:W:2, :] = im[:,:,0]
+    out[1:H:2, 0:W:2, :] = im[:,:,0]
+    return out
+
 def load_yaml(load_path):
     """load yaml file"""
     with open(load_path, 'r') as f:
