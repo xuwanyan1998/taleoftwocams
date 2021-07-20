@@ -17,6 +17,7 @@ from Utils import set_memory_growth,load_yaml
 
 flags.DEFINE_string('gpu', '0', 'which gpu to use')
 flags.DEFINE_integer('batch_size', '0', 'batch size to use')
+flags.DEFINE_string('cfg_path', './configs/unetdemo.yaml', 'config file path')
 
 
 def main(_):
