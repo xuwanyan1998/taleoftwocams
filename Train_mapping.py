@@ -14,20 +14,25 @@ import random
 from ModelZoo import get_unet
 from TwoCamDatasets import TwoCamDatasets
 from Utils import set_memory_growth
+
 flags.DEFINE_string('gpu', '0', 'which gpu to use')
+flags.DEFINE_string('batch_size', '16', 'batch size to use')
 
 input_dir = "data/input/"
 target_dir = "data/target/"
 
-img_size_w = 512
-img_size_h = 512
 
 
 
 def main(_):
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     os.environ['CUDA_VISIBLE_DEVICES'] = FLAGS.gpu
+    batch_size = FLAGS.batch_size
 
+    # if modify here, TwoCamDS also need to be modified
+    img_size_w = 512
+    img_size_h = 512
+    val_samples = 50
 
     set_memory_growth()
     tf.config.experimental.list_physical_devices('GPU')
@@ -69,12 +74,8 @@ def main(_):
     target_img_paths = target_img_paths2
 
     img_size = (img_size_w, img_size_h)
-    # img_size = (160, 160)
-    num_classes = 1
-    batch_size = 16
 
     # Split our img paths into a training and a validation set
-    val_samples = 50
     random.Random(1).shuffle(input_img_paths)
     random.Random(1).shuffle(target_img_paths)
     train_input_img_paths = input_img_paths[:-val_samples]
