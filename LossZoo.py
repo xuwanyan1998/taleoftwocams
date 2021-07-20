@@ -35,5 +35,5 @@ def PSNRLoss(y_true, y_pred):
 # def PSNRLoss(y_true, y_pred):
 #     return 10. * K.log(255**2/mean_squared_error(y_pred , y_true))/ K.log(10.)
 
-def customized_loss(y_true, y_pred, lamada=0.01):
+def customized_loss(y_true, y_pred, lamada=0.0):
     return losses.mean_absolute_error(y_pred, y_true) + lamada * perceptual_loss(y_pred, y_true)

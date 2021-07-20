@@ -2,6 +2,7 @@ from tensorflow import keras
 import tensorflow as tf
 from absl import app, flags, logging
 import numpy as np
+import yaml
 
 
 def pack_raw(im):
@@ -16,6 +17,12 @@ def pack_raw(im):
                           im[1:H:2, 0:W:2, :]), axis=2)
     return out
 
+def load_yaml(load_path):
+    """load yaml file"""
+    with open(load_path, 'r') as f:
+        loaded = yaml.load(f, Loader=yaml.Loader)
+
+    return loaded
 
 
 def set_memory_growth():

@@ -1,0 +1,16 @@
+# general x.x.134.222
+batch_size: 16
+input_size: 112
+sub_name: 'unet_demo'
+backbone_type: 'unet' #
+loss_fun: 'mean_absolute_error'
+
+
+num_samples: 300
+epochs: 300
+base_lr: 0.001
+w_decay: !!float 5e-4
+save_steps: 1000
+
+train_dataset: 'data2'
+#test_dataset: './data/test_dataset'
