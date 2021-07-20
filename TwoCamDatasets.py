@@ -8,12 +8,13 @@ from Utils import pack_raw
 class TwoCamDatasets(keras.utils.Sequence):
     """Helper to iterate over the data (as Numpy arrays)."""
 
-    def __init__(self, batch_size, img_size, input_img_size, input_img_paths, target_img_paths):
+    def __init__(self, batch_size, img_size, input_img_size, input_img_paths, target_img_paths,packraw=True):
         self.batch_size = batch_size
         self.img_size = img_size
         self.input_img_size = input_img_size
         self.input_img_paths = input_img_paths
         self.target_img_paths = target_img_paths
+        self.packraw = packraw
 
     def __len__(self):
         return len(self.target_img_paths) // self.batch_size
@@ -26,13 +27,20 @@ class TwoCamDatasets(keras.utils.Sequence):
         batch_target_img_paths = self.target_img_paths[i : i + self.batch_size]
 #         print(batch_input_img_paths,batch_target_img_paths)
 #         x = np.zeros((self.batch_size,) + self.img_size + (1,), dtype="float32")
-        x = np.zeros((self.batch_size,) + (256,256) + (4,), dtype="float32")
+
+        if self.packraw:
+            x = np.zeros((self.batch_size,) + (256, 256) + (4,), dtype="float32")
+        else:
+            x = np.zeros((self.batch_size,) + (512, 512) + (1,), dtype="float32")
+
         for j, path in enumerate(batch_input_img_paths):
             img = io.imread(path)
             img = img[xi:xi+wi,yi:yi+hi]
 #             img = (img / 127.5) - 1
-#             x[j] = img
-            x[j] = pack_raw(img)
+            if self.packraw:
+                x[j] = pack_raw(img)
+            else:
+                x[j] = img
         y = np.zeros((self.batch_size,) + self.img_size + (1,), dtype="float32")
         for j, path in enumerate(batch_target_img_paths):
             img = io.imread(path)

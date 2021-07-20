@@ -11,7 +11,7 @@ from tensorflow.keras.callbacks import EarlyStopping,ModelCheckpoint, TensorBoar
 
 import random
 
-from ModelZoo import get_unet
+from ModelZoo import get_unet,get_unet_raw2gray
 from TwoCamDatasets import TwoCamDatasets
 from Utils import set_memory_growth,load_yaml
 
@@ -90,11 +90,12 @@ def main(_):
 
     # Instantiate data Sequences for each split
     train_gen = TwoCamDatasets(
-        batch_size, img_size, img_size_w, train_input_img_paths, train_target_img_paths
+        batch_size, img_size, img_size_w, train_input_img_paths, train_target_img_paths,packraw=False
     )
-    val_gen = TwoCamDatasets(batch_size, img_size, img_size_w, val_input_img_paths, val_target_img_paths)
+    val_gen = TwoCamDatasets(batch_size, img_size, img_size_w, val_input_img_paths, val_target_img_paths,packraw=False)
     # # Build model
-    model = get_unet(256, 256)
+    # model = get_unet(256, 256)
+    model = get_unet_raw2gray(512, 512)
     model.summary()
 
 
@@ -118,7 +119,7 @@ def main(_):
     # tb_callback._total_batches_seen = steps
     # tb_callback._samples_seen = steps * cfg['batch_size']
     callbacks = [
-        keras.callbacks.ModelCheckpoint("model.h5", save_best_only=True),
+        keras.callbacks.ModelCheckpoint("model_no_packraw.h5", save_best_only=True),
         es,
         tb_callback
     ]
