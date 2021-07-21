@@ -107,7 +107,7 @@ def main(_):
     # optimizer = tf.keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.99, epsilon=1e-08, decay=0.0)
     # optimizer = tf.keras.optimizers.SGD(learning_rate=learning_rate, momentum=0.9, nesterov=True)  # can use adam sgd
     model.compile(optimizer='adam', loss=LossZoo.customized_loss,
-                  metrics=['mean_absolute_error', LossZoo.PSNRLoss, LossZoo.perceptual_loss])  # 'mean_absolute_error',
+                  metrics=['mse', LossZoo.PSNRLoss, LossZoo.perceptual_loss])  # 'mean_absolute_error',
     # model.compile(optimizer="adam", loss=[losses.mean_absolute_error],
     #               metrics=['mean_absolute_error',PSNRLoss,perceptual_loss])#
     # 监控val_loss，当连续40轮变化小于0.0001时启动early stopping
@@ -119,7 +119,7 @@ def main(_):
     # tb_callback._total_batches_seen = steps
     # tb_callback._samples_seen = steps * cfg['batch_size']
     callbacks = [
-        keras.callbacks.ModelCheckpoint("model_no_packraw.h5", save_best_only=True),
+        keras.callbacks.ModelCheckpoint("model_no_packraw_l2.h5", save_best_only=True),
         es,
         tb_callback
     ]
