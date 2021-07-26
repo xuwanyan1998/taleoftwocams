@@ -12,5 +12,5 @@ base_lr: 0.01
 w_decay: !!float 5e-4
 save_steps: 1000
 
-train_dataset: 'data2'
+train_dataset: 'data/DUAL'
 #test_dataset: './data/test_dataset'

@@ -95,7 +95,7 @@ def main(_):
     val_gen = TwoCamDatasets(batch_size, img_size, img_size_w, val_input_img_paths, val_target_img_paths,packraw=False)
     # # Build model
     # model = get_unet(256, 256)
-    model = get_unet_raw2gray(512, 512)
+    model = get_unet_raw2gray(cfg['input_size'], cfg['input_size'])
     model.summary()
 
 
