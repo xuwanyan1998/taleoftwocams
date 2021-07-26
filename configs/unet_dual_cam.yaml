@@ -1,7 +1,7 @@
 # general x.x.134.222
 batch_size: 16
 input_size: 512
-sub_name: 'unet_demo'
+sub_name: 'unet_dual'
 backbone_type: 'unet' #
 loss_fun: 'mean_absolute_error'
 

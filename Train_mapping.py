@@ -119,7 +119,7 @@ def main(_):
     # tb_callback._total_batches_seen = steps
     # tb_callback._samples_seen = steps * cfg['batch_size']
     callbacks = [
-        keras.callbacks.ModelCheckpoint("model_no_packraw_l2.h5", save_best_only=True),
+        keras.callbacks.ModelCheckpoint("model_{}_l2.h5".format(cfg['sub_name']), save_best_only=True),
         es,
         tb_callback
     ]
